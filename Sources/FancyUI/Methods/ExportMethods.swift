@@ -9,6 +9,11 @@ import Foundation
 import SwiftUI
 import PDFKit
 
+func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return paths[0]
+}
+
 // create pdf
 
 extension View {
@@ -53,7 +58,7 @@ extension View {
 // create image
 
 extension View {
-    func createImage(save: Bool) -> Image {
+    func createImage() -> Image {
         #if os(iOS)
         let controller = UIHostingController(rootView: self)
         let view = controller.view
@@ -93,3 +98,50 @@ extension View {
     }
 }
 
+// save file
+
+#if os(iOS)
+func saveUIImage(uiImage: UIImage, fileName: String?) async {
+    if let image = uiImage {
+        if let data = image.pngData() {
+            let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedImage.png")
+            try? data.write(to: filename)
+        }
+    }
+}
+#endif
+
+func savePDF(pdf: PDFPage, fileName: String?) async {
+    if let pdfFile = pdf.document {
+        if let data = pdfFile.dataRepresentation() {
+            let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedPDF.png")
+            try? data.write(to: filename)
+        }
+    }
+}
+
+extension PDFPage {
+    func savePage(fileName: String?) async {
+        if let pdfFile = self.document {
+            if let data = pdfFile.dataRepresentation() {
+                let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedPDF.png")
+                try? data.write(to: filename)
+            }
+        }
+    }
+}
+
+extension PDFDocument {
+    func saveDocument(fileName: String?) async {
+            if let data = self.dataRepresentation() {
+                let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedPDF.png")
+                try? data.write(to: filename)
+            }
+    }
+}
+
+extension PDFDocument {
+    func viewPDF() -> some View {
+        return DisplayPDFView(pdf: self)
+    }
+}
