@@ -37,3 +37,10 @@ public enum expandSymbol: String {
     case arrowtriangleSquare = "arrowtriangle.right.square"
     case arrowtriangleSquareFilled = "arrowtriangle.right.square.fill"
 }
+
+
+let yearFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy"
+    return formatter
+}()

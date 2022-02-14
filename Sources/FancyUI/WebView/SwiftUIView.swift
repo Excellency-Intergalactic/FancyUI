@@ -10,9 +10,25 @@ import SwiftUI
 struct WebView: View {
     var html: String?
     var url: String?
+    var sheet: Bool?
+    @Environment(\.presentationMode) var presentationMode
     
     @ViewBuilder
     var body: some View {
+        VStack {
+            if sheet ?? false {
+            HStack {
+                Spacer()
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle")
+                        .imageScale(.large)
+                }
+            }.padding(.horizontal)
+                    .padding(.bottom, 2)
+                    .padding(.top, 10)
+            }
         if html ?? "" == "" {
             #if os(iOS)
             iOSWebView(url: URL(string: url ?? "https://excellency.one") ?? URL(fileURLWithPath: ""), showString: false, html: "")
@@ -26,14 +42,12 @@ struct WebView: View {
             MacWebView(url: URL(string: url ?? "https://excellency.one") ?? URL(fileURLWithPath: ""), showString: true, html: html ?? "")
             #endif
         }
-        VStack {
-            
         }
     }
 }
 
 struct WebView_Previews: PreviewProvider {
     static var previews: some View {
-        WebView(html: "", url: "")
+        WebView(html: "", url: "https://apple.com", sheet: true)
     }
 }

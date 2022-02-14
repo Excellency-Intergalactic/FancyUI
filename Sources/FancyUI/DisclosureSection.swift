@@ -7,22 +7,23 @@
 
 import SwiftUI
 
-struct DisclosureSection<Content: View>: View {
+struct DisclosureSection<Label, Content> : View where Label : View, Content : View {
     var title: String?
     var symbolChoice: expandSymbol?
     var multicolorSymbol: Bool?
     var showDivider: Bool?
     
     @State var showingDetail: Bool = false
-    @ViewBuilder var content: Content
+    @ViewBuilder var content: () -> Content
+    @ViewBuilder var label: () -> Label
     
         
     var body: some View {
         if #available(iOS 14.0, *) {
             Section {
                 HStack {
-                    Text(title ?? "")
-                        .font(.system(.headline, design: .rounded))
+                    label()
+                        .font(.headline.bold())
                     Spacer()
                     Button(action: {
                         withAnimation {
@@ -49,14 +50,14 @@ struct DisclosureSection<Content: View>: View {
                     withAnimation {
                         showingDetail.toggle()
                     }
-                }
+                }.frame(minHeight: 50)
                 
                 if showingDetail {
                     if showDivider ?? false {
                         Divider()
                     }
                     
-                    content
+                    content()
                         .padding(.vertical, 5)
                 }
             }
@@ -68,8 +69,10 @@ struct DisclosureSection<Content: View>: View {
 
 struct DisclosureSection_Previews: PreviewProvider {
     static var previews: some View {
-        DisclosureSection(title: "Hello") {
+        DisclosureSection {
             Text(verbatim: "Hello, world")
+        } label: {
+            Text("Hello")
         }
     }
 }

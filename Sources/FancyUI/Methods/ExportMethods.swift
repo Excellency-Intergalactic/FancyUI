@@ -71,7 +71,7 @@ extension View {
         let uiimage = renderer.image { _ in
             view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
         }
-        let image = Image(uiimage)
+        let image = Image(uiImage: uiimage)
         #else
         let controller = NSHostingController(rootView: self)
         let targetSize = controller.view.intrinsicContentSize
@@ -102,12 +102,12 @@ extension View {
 
 #if os(iOS)
 func saveUIImage(uiImage: UIImage, fileName: String?) async {
-    if let image = uiImage {
+        let image = uiImage
         if let data = image.pngData() {
             let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedImage.png")
             try? data.write(to: filename)
         }
-    }
+    
 }
 #endif
 
