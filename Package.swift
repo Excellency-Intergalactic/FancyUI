@@ -27,6 +27,7 @@ let package = Package(
             name: "FancyUI",
             dependencies: [
                 .product(name: "Algorithms", package: "swift-algorithms"),
+                .product(name: "Charts", package: "swiftui-charts"),
             ])
     ]
 )
