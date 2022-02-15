@@ -86,7 +86,7 @@ struct ImagePicker<Content: View>: View {
 
 struct ImagePicker_Previews: PreviewProvider {
     static var previews: some View {
-        ImagePicker(ImageData: .constant(Data()), image: .constant(Image(""))) {
+        ImagePicker(showFilePicker: true, ImageData: .constant(Data()), image: .constant(Image(""))) {
             Text("Select Image")
         }
     }
