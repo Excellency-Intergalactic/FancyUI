@@ -111,34 +111,8 @@ func saveUIImage(uiImage: UIImage, fileName: String?) async {
 }
 #endif
 
-func savePDF(pdf: PDFPage, fileName: String?) async {
-    if let pdfFile = pdf.document {
-        if let data = pdfFile.dataRepresentation() {
-            let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedPDF.png")
-            try? data.write(to: filename)
-        }
-    }
-}
 
-extension PDFPage {
-    func savePage(fileName: String?) async {
-        if let pdfFile = self.document {
-            if let data = pdfFile.dataRepresentation() {
-                let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedPDF.png")
-                try? data.write(to: filename)
-            }
-        }
-    }
-}
 
-extension PDFDocument {
-    func saveDocument(fileName: String?) async {
-            if let data = self.dataRepresentation() {
-                let filename = getDocumentsDirectory().appendingPathComponent(fileName ?? "ExportedPDF.png")
-                try? data.write(to: filename)
-            }
-    }
-}
 
 extension PDFDocument {
     func viewPDF() -> some View {

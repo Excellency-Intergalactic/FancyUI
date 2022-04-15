@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+#if os(macOS)
 extension View {
     private func newWindowInternal(with title: String) -> NSWindow {
         let window = NSWindow(
@@ -26,3 +27,4 @@ extension View {
         self.newWindowInternal(with: title).contentView = NSHostingView(rootView: self)
     }
 }
+#endif

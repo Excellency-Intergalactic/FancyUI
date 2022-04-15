@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+#if os(macOS)
 import Quartz
+#endif
 
-struct ImagePicker<Content: View>: View {
+struct ImagePickerView<Content: View>: View {
     // Image
     @State private var showImagePicker = false
     #if os(iOS)
@@ -84,10 +86,8 @@ struct ImagePicker<Content: View>: View {
     }
 }
 
-struct ImagePicker_Previews: PreviewProvider {
+struct ImagePickerView_Previews: PreviewProvider {
     static var previews: some View {
-        ImagePicker(showFilePicker: true, ImageData: .constant(Data()), image: .constant(Image(""))) {
-            Text("Select Image")
-        }
+        ImagePicker(image: .constant(UIImage(named: "")))
     }
 }

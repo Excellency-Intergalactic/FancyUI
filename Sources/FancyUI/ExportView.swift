@@ -49,7 +49,7 @@ struct LargeFeatureView: View {
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct LargeFeatureView_Previews: PreviewProvider {
     static var previews: some View {
         LargeFeatureView(systemImage: "bonjour", title: "Hello", text: "Press to export", action: {})
     }
